@@ -1,0 +1,82 @@
+---
+import { wpquery } from "../functions/data";
+import CartIcon from "../components/icons/Cart.astro";
+
+interface MenuItems {
+    label: string;
+    path: string;
+}
+
+const data = await wpquery({
+    query: `
+    query HeaderData {
+        rankMathSettings {
+            meta {
+                local {
+                    logo {
+                        sourceUrl(size: MEDIUM)
+                        altText
+                        srcSet
+                    }
+                }
+            }
+        }
+        menuItems {
+            nodes {
+                label
+                path
+            }
+        }
+    }
+    `,
+});
+
+const { rankMathSettings, menuItems } = data;
+const siteLogo = rankMathSettings.meta.local.logo;
+const siteUrl = import.meta.env.FRONT_END_DOMAIN;
+---
+
+<header class="max-w-screen-xl mx-auto z-50">
+    <main class="flex flex-row justify-between items-center py-6 pt-14">
+        <section>
+            <a href="/">
+                <img
+                    width="130"
+                    height="100"
+                    src={siteLogo.sourceUrl}
+                    alt="GoWell Logo"
+                /></a
+            >
+        </section>
+        <section class="flex flex-row items-center gap-x-7">
+            <nav>
+                <ul class="flex flex-row gap-x-7">
+                    {
+                        menuItems.nodes.map((item: MenuItems) => {
+                            return (
+                                <li class="hover:underline">
+                                    <a href={item.path}>{item.label}</a>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
+            </nav>
+            <button
+                class="bg-black text-white px-3.5 py-2 uppercase rounded-lg font-button font-medium hover:shadow-xl hover:brightness-110"
+                >Contacto</button
+            >
+            <button
+                id="cart"
+                class="p-2 bg-black rounded-xl hover:shadow-xl hover:brightness-110"
+            >
+                <CartIcon className="fill-white" />
+            </button>
+            <ul class="flex flex-row items-center gap-x-2">
+                <li class="font-bold">ES</li>
+                <li>|</li>
+                <li>EN</li>
+            </ul>
+        </section>
+    </main>
+</header>
