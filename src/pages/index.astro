@@ -1,10 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Logo from "../components/Logo.astro";
+import HomeHero from "../components/heros/Home.astro";
 ---
 
 <Layout title="GoWell">
-	<main>
-		<Logo />
-	</main>
+	<HomeHero
+		videoURL="https://img-gowell.semantica.cloud/2024/03/Opcion-1-Video-Home-GW.mp4"
+		title="El ecosistema GoWell"
+		description="Somos una alternativa de bienestar que mejora el estilo de vida de las personas. Nuestros conceptos, productos y servicios pretenden ayudarle a vivir la vida al máximo."
+		button={{
+			text: "Conoce más",
+			link: "/nosotros",
+		}}
+	/>
 </Layout>

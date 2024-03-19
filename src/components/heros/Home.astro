@@ -1,0 +1,44 @@
+---
+import "@fontsource/archivo/800.css";
+import "@fontsource/archivo/900.css";
+
+interface Props {
+    title: string;
+    description: string;
+    videoURL: string;
+    button: {
+        text: string;
+        link: string;
+    };
+}
+const { title, description, videoURL, button } = Astro.props;
+---
+
+<style>
+    #bg::after {
+        background-image: linear-gradient(to bottom, #fff, #808080);
+    }
+</style>
+
+<section id="bg" class="relative h-[1080px] -mt-32 overflow-hidden -z-10">
+    <video class="absolute w-full -z-10" autoplay muted loop id="bgVideo">
+        <source src={videoURL} type="video/mp4" />
+        Su navegador no soporta video HTML5.
+    </video>
+    <main class="max-w-screen-xl mx-auto h-full">
+        <section class="h-full flex flex-col justify-center items-center">
+            <h1
+                class="font-heading text-8xl uppercase text-white text-center mb-6"
+            >
+                {title}
+            </h1>
+            <p class="text-xl text-white text-center text-balance mb-10">
+                {description}
+            </p>
+            <a
+                class="font-button uppercase bg-black rounded-lg text-white max-w-fit px-8 py-3"
+                href={button.link}>{button.text}</a
+            >
+        </section>
+    </main>
+</section>
