@@ -16,7 +16,11 @@ const { title, description, videoURL, button } = Astro.props;
 
 <style>
     #bg::after {
-        background-image: linear-gradient(to bottom, #fff, #808080);
+        z-index: -1;
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(to bottom, #8080804a, #ffffff52);
     }
 </style>
 
@@ -25,7 +29,7 @@ const { title, description, videoURL, button } = Astro.props;
         <source src={videoURL} type="video/mp4" />
         Su navegador no soporta video HTML5.
     </video>
-    <main class="max-w-screen-xl mx-auto h-full">
+    <main class="max-w-screen-xl mx-auto h-full z-10">
         <section class="h-full flex flex-col justify-center items-center">
             <h1
                 class="font-heading text-8xl uppercase text-white text-center mb-6"
