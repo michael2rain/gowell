@@ -13,26 +13,27 @@ interface Props {
     };
 }
 const { text, type = "link", link, button, className = "" } = Astro.props;
-const classList = "btn-primary " + className;
+const classList = "btn-primary-e " + className;
 ---
 
 <style is="global">
-    .btn-primary {
-        @apply cursor-pointer bg-black text-white uppercase rounded-lg font-button font-medium transition-all hover:shadow-xl hover:brightness-110;
+    .btn-primary-e {
+        @apply font-button uppercase font-medium text-white cursor-pointer bg-gradient-to-r from-neutral-950 to-[#505050] 
+        rounded-lg transition-all hover:brightness-110 shadow-2xl shadow-neutral-950;
     }
-    .btn-primary:active {
+    .btn-primary-e:active {
         @apply shadow-none;
     }
-    .btn-primary:disabled {
+    .btn-primary-e:disabled {
         @apply bg-gray-300 text-gray-500 cursor-not-allowed;
     }
     .btn-base {
         @apply px-3.5 py-2;
     }
-    .btn-primary-lg {
+    .btn-primary-e-lg {
         @apply px-12 py-3;
     }
-    .btn-primary-xl {
+    .btn-primary-e-xl {
         @apply px-12 py-3 md:py-3.5 text-lg md:w-72 text-center;
     }
 </style>
@@ -40,7 +41,7 @@ const classList = "btn-primary " + className;
 {
     type === "link" ? (
         <a
-            class={classList + " " + (className.includes("btn-lg") ? "btn-primary-lg" : className.includes("btn-xl") ? "btn-primary-xl" : "btn-base")}
+            class={classList + " " + (className.includes("btn-lg") ? "btn-primary-e-lg" : className.includes("btn-xl") ? "btn-primary-e-xl" : "btn-base")}
             href={link?.href}
             target={!link?.target ? "_self" : link.target}
             title={link?.title}

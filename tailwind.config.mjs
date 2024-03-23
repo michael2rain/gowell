@@ -13,6 +13,9 @@ export default {
 					'acero': '#8C8C8C',
 				}
 			},
+			boxShadow: {
+				button: '4px 6px 27px 0 #e3ebf7',
+			}
 		},
 	},
 	plugins: [],

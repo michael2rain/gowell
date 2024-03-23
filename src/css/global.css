@@ -19,3 +19,20 @@
         /* Firefox */
     }
 }
+
+/* Button Primary */
+.btn-primary {
+    @apply cursor-pointer font-button uppercase font-medium text-white bg-neutral-950 transition-all duration-300 shadow-lg;
+}
+
+.btn-primary:hover {
+    @apply bg-neutral-900 shadow-xl brightness-110;
+}
+
+.btn-primary:active {
+    @apply ring ring-neutral-50/30;
+}
+
+.btn-primary:focus {
+    @apply ring ring-neutral-50/30;
+}
