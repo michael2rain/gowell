@@ -1,0 +1,53 @@
+---
+interface Props {
+    className?: string;
+    text: string;
+    type?: "button" | "submit" | "link";
+    link?: {
+        href: string;
+        title: string;
+        target?: "_blank" | "_self" | "_parent" | "_top";
+    };
+    button?: {
+        type: "button" | "submit";
+    };
+}
+const { text, type = "link", link, button, className = "" } = Astro.props;
+const classList = "btn-primary " + className;
+---
+
+<style is="global">
+    .btn-primary {
+        @apply cursor-pointer bg-black text-white uppercase rounded-lg font-button font-medium transition-all hover:shadow-xl hover:brightness-110;
+    }
+    .btn-primary:active {
+        @apply shadow-none;
+    }
+    .btn-primary:disabled {
+        @apply bg-gray-300 text-gray-500 cursor-not-allowed;
+    }
+    .btn-base {
+        @apply px-3.5 py-2;
+    }
+    .btn-primary-lg {
+        @apply px-12 py-3;
+    }
+    .btn-primary-xl {
+        @apply px-12 py-3 md:py-3.5 text-lg md:w-72 text-center;
+    }
+</style>
+
+{
+    type === "link" ? (
+        <a
+            class={classList + " " + (className.includes("btn-lg") ? "btn-primary-lg" : className.includes("btn-xl") ? "btn-primary-xl" : "btn-base")}
+            href={link?.href}
+            target={!link?.target ? "_self" : link.target}
+            title={link?.title}
+        >
+            {text}
+        </a>
+    ) : (
+        <button type={button?.type}>{text}</button>
+    )
+}

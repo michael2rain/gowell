@@ -33,14 +33,16 @@ const data = await wpquery({
 
 const { rankMathSettings, menuItems } = data;
 const siteLogo = rankMathSettings.meta.local.logo;
-const siteUrl = import.meta.env.FRONT_END_DOMAIN;
 ---
 
-<header class="max-w-screen-xl mx-auto z-50">
-    <main class="flex flex-row justify-between items-center py-6 pt-14">
+<header class="max-w-screen-xl mx-auto h-20 relative z-10">
+    <main
+        class="flex flex-row justify-between items-center py-5 px-3 md:py-6 md:pt-14 z-50"
+    >
         <section>
             <a href="/">
                 <img
+                    class="w-28 md:w-32"
                     width="130"
                     height="100"
                     src={siteLogo.sourceUrl}
@@ -48,9 +50,9 @@ const siteUrl = import.meta.env.FRONT_END_DOMAIN;
                 /></a
             >
         </section>
-        <section class="flex flex-row items-center gap-x-7">
+        <section class="flex flex-row items-center gap-x-3 md:gap-x-7">
             <nav>
-                <ul class="flex flex-row gap-x-7">
+                <ul class="hidden lg:flex flex-row gap-x-7">
                     {
                         menuItems.nodes.map((item: MenuItems) => {
                             return (
@@ -72,7 +74,7 @@ const siteUrl = import.meta.env.FRONT_END_DOMAIN;
             >
                 <CartIcon className="fill-white" />
             </button>
-            <ul class="flex flex-row items-center gap-x-2">
+            <ul class="hidden md:flex flex-row items-center gap-x-2">
                 <li class="font-bold">ES</li>
                 <li>|</li>
                 <li>EN</li>
