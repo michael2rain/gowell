@@ -1,8 +1,11 @@
 ---
-import { wpquery } from "../functions/data";
-import BagIcon from "./icons/Bag.astro";
-import BarsIcon from "./icons/Bars.astro";
-import ArrowTopRigth from "./icons/ArrowTopRigth.astro";
+import "./header.css";
+
+import { wpquery } from "../../functions/data";
+import BagIcon from "../icons/Bag.astro";
+import BarsIcon from "../icons/Bars.astro";
+import ArrowTopRigth from "../icons/ArrowTopRigth.astro";
+import CloseIcon from "../icons/Close.astro";
 
 interface MenuItems {
     label: string;
@@ -37,30 +40,7 @@ const { rankMathSettings, menuItems } = data;
 const siteLogo = rankMathSettings.meta.local.logo;
 ---
 
-<style is="global">
-    @keyframes nav-in {
-        from {
-            opacity: 0;
-            transform: translateX(-10%);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    @keyframes nav-out {
-        to {
-            opacity: 0;
-            transform: translateX(-10%);
-        }
-    }
-    .nav-in {
-        animation: nav-in 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
-    }
-    .nav-out {
-        animation: nav-out 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
-    }
-</style>
+<script src="./header.js"></script>
 
 <header id="Header" class="max-w-screen-xl mx-auto h-20 relative z-10">
     <main
@@ -125,13 +105,19 @@ const siteLogo = rankMathSettings.meta.local.logo;
                     <BagIcon width={26} className=" stroke-white" />
                 </button>
                 <button
+                    id="menuButton"
                     aria-label="Menu principal"
                     class="lg:hidden btn-primary p-2 rounded-xl active:scale-95"
                 >
                     <BarsIcon
                         width={26}
-                        id="MenuIcon"
+                        id="BarsIcon"
                         className=" stroke-white"
+                    />
+                    <CloseIcon
+                        width={26}
+                        id="CloseIcon"
+                        className=" stroke-white hidden"
                     />
                 </button>
             </section>
@@ -143,32 +129,3 @@ const siteLogo = rankMathSettings.meta.local.logo;
         </section>
     </main>
 </header>
-
-<script>
-    const buttons = document.querySelectorAll("button");
-    const header = document.querySelector("Header");
-    const nav = document.querySelector("nav");
-
-    let isOpen = false;
-    buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-            if (button.id === "cart") {
-                console.log("cart");
-            } else {
-                if (!isOpen) {
-                    isOpen = true;
-                    nav?.classList.add("nav-in");
-                    nav?.classList.remove("nav-out");
-                    nav?.classList.remove("hidden");
-                } else {
-                    isOpen = false;
-                    nav?.classList.remove("nav-in");
-                    nav?.classList.add("nav-out");
-                    setTimeout(() => {
-                        nav?.classList.add("hidden");
-                    }, 100);
-                }
-            }
-        });
-    });
-</script>
