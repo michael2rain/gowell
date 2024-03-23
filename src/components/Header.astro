@@ -2,6 +2,7 @@
 import { wpquery } from "../functions/data";
 import BagIcon from "./icons/Bag.astro";
 import BarsIcon from "./icons/Bars.astro";
+import ArrowTopRigth from "./icons/ArrowTopRigth.astro";
 
 interface MenuItems {
     label: string;
@@ -47,21 +48,23 @@ const siteLogo = rankMathSettings.meta.local.logo;
             transform: translateX(0);
         }
     }
-    .mobile-nav {
-        @apply absolute flex-col inset-0 top-20 p-6 bg-neutral-50 min-h-fit shadow-lg -z-10 divide-y divide-neutral-200;
-        animation: nav-in 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    @keyframes nav-out {
+        to {
+            opacity: 0;
+            transform: translateX(-10%);
+        }
     }
-    .mobile-nav li {
-        @apply text-black/80 py-4;
+    .nav-in {
+        animation: nav-in 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    }
+    .nav-out {
+        animation: nav-out 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
     }
 </style>
 
-<header
-    id="Header"
-    class="max-w-screen-xl mx-auto h-20 relative z-10 bg-transparent transition-all"
->
+<header id="Header" class="max-w-screen-xl mx-auto h-20 relative z-10">
     <main
-        class="flex flex-row justify-between items-center py-5 px-3 md:py-6 md:pt-14 z-50"
+        class="flex flex-row justify-between items-center py-5 px-3 lg:px-7 lg:pt-10 xl:px-0 xl:py-6 xl:pt-14 z-50"
     >
         <section>
             <a href="/">
@@ -75,35 +78,38 @@ const siteLogo = rankMathSettings.meta.local.logo;
             >
         </section>
         <section class="flex flex-row items-center gap-x-6 md:gap-x-7">
-            <nav>
+            <nav
+                class="hidden lg:block absolute h-fit inset-0 px-3 pb-6 -z-10 bg-neutral-50 lg:relative lg:bg-transparent lg:z-10 lg:px-0 lg:py-0"
+            >
                 <ul
-                    class="hidden lg:flex flex-row gap-x-6 bg-transparent transition-all"
+                    class="flex flex-col gap-x-6 divide-y divide-neutral-100 font-medium mt-20 pt-3 border-t lg:flex-row lg:top-0 lg:p-0 lg:divide-y-0 lg:z-10 lg:mt-0 lg:pt-3 lg:border-none"
                 >
                     {
                         menuItems.nodes.map((item: MenuItems) => {
-                            if (item.path === Astro.url.pathname) {
-                                return (
-                                    <li class="text-black/80">
-                                        <a
-                                            class="font-bold hover:text-black px-2 py-1"
-                                            href={item.path}
-                                        >
-                                            {item.label}
-                                        </a>
+                            return (
+                                <>
+                                    <li class="flex flex-row uppercase lg:normal-case mx-2 lg:mx-0">
+                                        {item.path === Astro.url.pathname ? (
+                                            <a
+                                                class="flex-grow py-4 font-bold hover:text-black lg:px-2 lg:py-1"
+                                                href={item.path}
+                                            >
+                                                {item.label}
+                                            </a>
+                                        ) : (
+                                            <a
+                                                class="relative flex-grow py-4 lg:px-2 lg:py-1 text-black/80 hover:text-black hover:underline underline-offset-4"
+                                                href={item.path}
+                                            >
+                                                {item.label}
+                                                <i class="absolute h-full right-0 inset-y-0 flex flex-col justify-center">
+                                                    <ArrowTopRigth className="stroke-neutral-800 text-neutral-500" />
+                                                </i>
+                                            </a>
+                                        )}
                                     </li>
-                                );
-                            } else {
-                                return (
-                                    <li>
-                                        <a
-                                            class="px-2 py-1 text-black/80 hover:text-black hover:underline underline-offset-4"
-                                            href={item.path}
-                                        >
-                                            {item.label}
-                                        </a>
-                                    </li>
-                                );
-                            }
+                                </>
+                            );
                         })
                     }
                 </ul>
@@ -116,16 +122,20 @@ const siteLogo = rankMathSettings.meta.local.logo;
                     >Contacto</a
                 >
                 <button id="cart" class="btn-primary p-2 rounded-xl">
-                    <BagIcon className=" stroke-white" />
+                    <BagIcon width={26} className=" stroke-white" />
                 </button>
                 <button
                     aria-label="Menu principal"
-                    class="lg:hidden btn-primary p-2 rounded-xl"
+                    class="lg:hidden btn-primary p-2 rounded-xl active:scale-95"
                 >
-                    <BarsIcon id="MenuIcon" className=" stroke-white" />
+                    <BarsIcon
+                        width={26}
+                        id="MenuIcon"
+                        className=" stroke-white"
+                    />
                 </button>
             </section>
-            <ul class="hidden md:flex flex-row items-center gap-x-2">
+            <ul class="hidden xl:flex flex-row items-center gap-x-2">
                 <li class="font-bold">ES</li>
                 <li>|</li>
                 <li>EN</li>
@@ -137,20 +147,27 @@ const siteLogo = rankMathSettings.meta.local.logo;
 <script>
     const buttons = document.querySelectorAll("button");
     const header = document.querySelector("Header");
-    const nav = document.querySelector("nav ul");
+    const nav = document.querySelector("nav");
 
+    let isOpen = false;
     buttons.forEach((button) => {
-        button.addEventListener("click", (event) => {
+        button.addEventListener("click", () => {
             if (button.id === "cart") {
                 console.log("cart");
             } else {
-                header?.classList.remove("bg-transparent");
-                header?.classList.toggle("bg-white");
-
-                nav?.classList.remove("flex-row");
-                nav?.classList.toggle("hidden");
-                nav?.classList.toggle("mobile-nav");
-                console.log(nav);
+                if (!isOpen) {
+                    isOpen = true;
+                    nav?.classList.add("nav-in");
+                    nav?.classList.remove("nav-out");
+                    nav?.classList.remove("hidden");
+                } else {
+                    isOpen = false;
+                    nav?.classList.remove("nav-in");
+                    nav?.classList.add("nav-out");
+                    setTimeout(() => {
+                        nav?.classList.add("hidden");
+                    }, 100);
+                }
             }
         });
     });
