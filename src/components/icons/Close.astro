@@ -6,10 +6,11 @@ interface Props {
     height?: number;
 }
 
-const { className, width = 24, height } = Astro.props;
+const { id, className, width = 24, height } = Astro.props;
 ---
 
 <svg
+    id={id}
     class={className}
     width={width}
     height={!height ? width : height}
@@ -19,9 +20,10 @@ const { className, width = 24, height } = Astro.props;
     ><g clip-path="url(#a)"
         ><path
             d="m12.94 12 5.527-5.527a.667.667 0 0 0-.94-.94L12 11.06 6.473 5.527a.67.67 0 1 0-.946.946L11.06 12l-5.533 5.527a.666.666 0 1 0 .94.94L12 12.94l5.527 5.527a.667.667 0 0 0 .94-.94L12.94 12Z"
-            fill="#F8F8F8"></path></g
+            fill="currentColor"></path></g
     ><defs
-        ><clipPath id="a"><path fill="#fff" d="M0 0h24v24H0z"></path></clipPath
+        ><clipPath id="a"
+            ><path fill="currentColor" d="M0 0h24v24H0z"></path></clipPath
         ></defs
     ></svg
 >

@@ -6,6 +6,7 @@ import BagIcon from "../icons/Bag.astro";
 import BarsIcon from "../icons/Bars.astro";
 import ArrowTopRigth from "../icons/ArrowTopRigth.astro";
 import CloseIcon from "../icons/Close.astro";
+import ArrowAngle from "../icons/ArrowAngle.astro";
 
 interface MenuItems {
     label: string;
@@ -40,7 +41,7 @@ const { rankMathSettings, menuItems } = data;
 const siteLogo = rankMathSettings.meta.local.logo;
 ---
 
-<script src="./header.js"></script>
+<script src="./header.ts"></script>
 
 <header id="Header" class="max-w-screen-xl mx-auto h-20 relative z-10">
     <main
@@ -58,11 +59,14 @@ const siteLogo = rankMathSettings.meta.local.logo;
             >
         </section>
         <section class="flex flex-row items-center gap-x-6 md:gap-x-7">
+            <!-- Añadir hidden al terminar de editar -->
             <nav
-                class="hidden lg:block absolute h-fit inset-0 px-3 pb-6 -z-10 bg-neutral-50 lg:relative lg:bg-transparent lg:z-10 lg:px-0 lg:py-0"
+                class="hidden lg:block absolute h-fit inset-0 px-3 pb-6 -z-10 bg-neutral-50 transition-transform lg:relative lg:bg-transparent lg:z-10 lg:px-0 lg:py-0"
             >
+                <!-- Añadir hidden al terminar de editar -->
                 <ul
-                    class="flex flex-col gap-x-6 divide-y divide-neutral-100 font-medium mt-20 pt-3 border-t lg:flex-row lg:top-0 lg:p-0 lg:divide-y-0 lg:z-10 lg:mt-0 lg:pt-3 lg:border-none"
+                    id="menuItems"
+                    class="hidden lg:flex flex-col gap-x-6 divide-y divide-neutral-100 font-medium mt-20 py-3 my-2 border-y lg:flex-row lg:top-0 lg:p-0 lg:divide-y-0 lg:z-10 lg:mt-0 lg:pt-3 lg:my-0 lg:border-none"
                 >
                     {
                         menuItems.nodes.map((item: MenuItems) => {
@@ -93,30 +97,72 @@ const siteLogo = rankMathSettings.meta.local.logo;
                         })
                     }
                 </ul>
+                <section id="miniCart" class="hidden mt-20 py-3 my-2 border-y">
+                    <main class="h-80 p-4 bg-neutral-200">
+                        <h2>Mini Cart</h2>
+                    </main>
+                </section>
+                <section class="lg:hidden pt-4">
+                    <button
+                        id="cartMenuButton"
+                        class="w-full font-button uppercase font-medium btn-mobile p-2 rounded-xl flex flex-row items-center justify-between gap-x-2 text-neutral-950"
+                    >
+                        <span class="text-neutral-900">
+                            3 Productos en la bolsa
+                        </span>
+                        <i class="px-1">
+                            <ArrowAngle
+                                direction="right"
+                                width={20}
+                                className="stroke-neutral-900"
+                            />
+                        </i>
+                    </button>
+                    <button
+                        id="goToMenuButton"
+                        class="hidden w-full font-button uppercase font-medium btn-mobile p-2 rounded-xl flex-row items-center justify-between gap-x-2 text-neutral-950"
+                    >
+                        <i class="px-1">
+                            <ArrowAngle
+                                direction="left"
+                                width={20}
+                                className="stroke-neutral-900"
+                            />
+                        </i>
+                        <span class="text-neutral-900"> Mostrar menú </span>
+                    </button>
+                </section>
             </nav>
-            <section class="flex flex-row gap-x-3.5">
+            <section class="flex flex-row gap-x-3">
                 <a
                     href="/contacto"
                     title="Contacto"
                     class="hidden md:block btn-primary px-3.5 py-2 rounded-lg"
                     >Contacto</a
                 >
-                <button id="cart" class="btn-primary p-2 rounded-xl">
-                    <BagIcon width={26} className=" stroke-white" />
+                <button
+                    id="cartButton"
+                    class="btn-primary btn-mobile p-2 rounded-xl"
+                >
+                    <BagIcon
+                        id="bagIcon"
+                        width={26}
+                        className=" stroke-white"
+                    />
                 </button>
                 <button
                     id="menuButton"
                     aria-label="Menu principal"
-                    class="lg:hidden btn-primary p-2 rounded-xl active:scale-95"
+                    class="lg:hidden btn-primary btn-mobile p-2 rounded-xl active:scale-95"
                 >
                     <BarsIcon
-                        width={26}
                         id="BarsIcon"
+                        width={26}
                         className=" stroke-white"
                     />
                     <CloseIcon
-                        width={26}
                         id="CloseIcon"
+                        width={26}
                         className=" stroke-white hidden"
                     />
                 </button>
