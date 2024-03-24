@@ -26,6 +26,8 @@
 }
 
 /* Mobile Buttons */
-.btn-primary.btn-mobile {
-    @apply bg-neutral-50/20 focus-within:bg-neutral-300/50 shadow-none *:stroke-neutral-700 *:text-neutral-700;
+@media (max-width: 640px) {
+    .btn-primary.btn-mobile {
+        @apply bg-neutral-50/20 focus-within:bg-neutral-300/50 shadow-none *:stroke-neutral-700 *:text-neutral-700;
+    }
 }

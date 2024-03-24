@@ -4,7 +4,11 @@ const nav = document.querySelector("nav");
 const menuItems = document.querySelector("#menuItems");
 const miniCart = document.querySelector("#miniCart");
 
+const goToMenuButton = header?.querySelector("#goToMenuButton");
+const cartMenuBtn = header?.querySelector("#cartMenuButton");
+
 let isOpen = false;
+let openWith = "";
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         switch (button.id) {
@@ -16,6 +20,8 @@ buttons.forEach((button) => {
                 });
                 toggleNav("menu");
 
+                openWith = "menu";
+
                 break;
             }
 
@@ -24,6 +30,8 @@ buttons.forEach((button) => {
                 miniCart?.classList.toggle("hidden")
 
                 if (!isOpen) {
+                    openWith = "cart";
+
                     toggleNav("cart");
                     const icons = header?.querySelectorAll("svg");
                     icons?.forEach((icon) => {
@@ -35,7 +43,18 @@ buttons.forEach((button) => {
                             console.log(icon.id);
                         }
                     });
-                }
+                } else {
+                    if (openWith === "menu") {
+                        toggleMiniCart();
+                        openWith = "cart";
+                    } else if (openWith === "cart") {
+                        toggleNav("cart");
+                    }
+                };
+
+                cartMenuBtn?.classList.toggle("hidden");
+                goToMenuButton?.classList.toggle("hidden");
+                goToMenuButton?.classList.add("flex");
 
                 break;
             }
@@ -44,7 +63,6 @@ buttons.forEach((button) => {
                 toggleMiniCart();
 
                 button.classList.toggle("hidden");
-                const goToMenuButton = header?.querySelector("#goToMenuButton");
                 goToMenuButton?.classList.toggle("hidden");
                 goToMenuButton?.classList.add("flex");
 
@@ -55,7 +73,6 @@ buttons.forEach((button) => {
                 toggleNavItems();
 
                 button.classList.toggle("hidden");
-                const cartMenuBtn = header?.querySelector("#cartMenuButton");
                 cartMenuBtn?.classList.toggle("hidden");
 
                 break;
@@ -74,7 +91,7 @@ const toggleNav = (option: string) => {
         if (option === "cart") {
             menuItems?.classList.add("hidden");
             miniCart?.classList.remove("hidden");
-        } else {
+        } else if (option === "menu") {
             menuItems?.classList.remove("hidden");
             miniCart?.classList.add("hidden");
         }
