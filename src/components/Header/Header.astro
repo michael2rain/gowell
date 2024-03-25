@@ -59,11 +59,11 @@ const siteLogo = rankMathSettings.meta.local.logo;
             >
         </section>
         <section class="flex flex-row items-center gap-x-6 md:gap-x-7">
-            <!-- Añadir hidden al terminar de editar -->
+            <!-- HIDDEN AÑADIDO -->
             <nav
                 class="hidden lg:block absolute h-fit inset-0 px-3 pb-6 -z-10 bg-neutral-50 transition-transform lg:relative lg:bg-transparent lg:z-10 lg:px-0 lg:py-0"
             >
-                <!-- Añadir hidden al terminar de editar -->
+                <!-- HIDDEN AÑADIDO -->
                 <ul
                     id="menuItems"
                     class="hidden lg:flex flex-col gap-x-6 divide-y divide-neutral-100 font-medium mt-20 py-3 my-2 border-y lg:flex-row lg:top-0 lg:p-0 lg:divide-y-0 lg:z-10 lg:mt-0 lg:pt-3 lg:my-0 lg:border-none"
@@ -104,32 +104,40 @@ const siteLogo = rankMathSettings.meta.local.logo;
                 </section>
                 <section class="lg:hidden pt-4">
                     <button
-                        id="cartMenuButton"
-                        class="w-full font-button uppercase font-medium btn-mobile p-2 rounded-xl flex flex-row items-center justify-between gap-x-2 text-neutral-950"
+                        id="modalCartButton"
+                        class="hidden w-full font-button uppercase font-medium p-2 rounded-xl text-neutral-950"
                     >
-                        <span class="text-neutral-900">
-                            3 Productos en la bolsa
+                        <span
+                            class="flex flex-row items-center justify-between gap-x-2"
+                        >
+                            <p class="text-neutral-900">
+                                3 Productos en la bolsa
+                            </p>
+                            <i class="px-1">
+                                <ArrowAngle
+                                    direction="right"
+                                    width={20}
+                                    className="stroke-neutral-900"
+                                />
+                            </i>
                         </span>
-                        <i class="px-1">
-                            <ArrowAngle
-                                direction="right"
-                                width={20}
-                                className="stroke-neutral-900"
-                            />
-                        </i>
                     </button>
                     <button
-                        id="goToMenuButton"
-                        class="hidden w-full font-button uppercase font-medium btn-mobile p-2 rounded-xl flex-row items-center justify-between gap-x-2 text-neutral-950"
+                        id="modalMenuButton"
+                        class="hidden w-full font-button uppercase font-medium p-2 text-neutral-950"
                     >
-                        <i class="px-1">
-                            <ArrowAngle
-                                direction="left"
-                                width={20}
-                                className="stroke-neutral-900"
-                            />
-                        </i>
-                        <span class="text-neutral-900"> Mostrar menú </span>
+                        <span
+                            class="w-full flex flex-row items-center justify-between gap-x-2"
+                        >
+                            <i class="px-1">
+                                <ArrowAngle
+                                    direction="left"
+                                    width={20}
+                                    className="stroke-neutral-900"
+                                />
+                            </i>
+                            <p class="text-neutral-900">Mostrar menú</p>
+                        </span>
                     </button>
                 </section>
             </nav>
