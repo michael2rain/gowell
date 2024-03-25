@@ -31,14 +31,16 @@ buttons.forEach((button) => {
                     toggleNav();
                     toggleHammyIcon();
 
-
+                    if (isMiniCartOpen) {
+                        toggleMiniCart("cartButton");
+                        toggleNavItems("menuButton");
+                    };
                 };
 
                 break;
             }
 
             case "cartButton": {
-
                 if (!isOpen) {
                     toggleMiniCart(button.id);
                     setTimeout(() => {
@@ -46,9 +48,12 @@ buttons.forEach((button) => {
                         toggleHammyIcon();
                     }, 100);
                 } else if (isOpen) {
+                    if (isMiniCartOpen) {
+                        return null;
+                    }
                     setTimeout(() => {
                         toggleMiniCart(button.id);
-                        toggleNavItems(button.id);
+                        toggleNavItems("menuButton");
                     }, 100);
                 };
 
@@ -57,7 +62,6 @@ buttons.forEach((button) => {
 
             case "modalCartButton": {
                 toggleMiniCart(button.id);
-
                 buttons.forEach((button) => {
                     if (button.id === "cartButton") {
                         button.focus();
@@ -89,6 +93,8 @@ const toggleNav = () => {
         nav?.classList.add("nav-out");
         setTimeout(() => {
             nav?.classList.add("hidden");
+            isMiniCartOpen = false;
+            isMenuItemsOpen = false;
         }, 100);
     }
 };
@@ -116,8 +122,6 @@ const toggleMiniCart = (button: string) => {
 
     isMiniCartOpen = true;
     isMenuItemsOpen = false;
-    console.log("MenuItems: ", isMenuItemsOpen);
-    console.log("MiniCart: ", isMiniCartOpen);
 };
 
 const toggleNavItems = (button: string) => {
@@ -128,29 +132,26 @@ const toggleNavItems = (button: string) => {
         setTimeout(() => {
             modalCartButton?.classList.toggle("hidden");
         }, 100);
+
     } else if (button === "modalMenuButton") {
         // Buttons
         modalCartButton?.classList.toggle("hidden");
         modalMenuButton?.classList.toggle("hidden");
-        menuItems?.classList.remove("nav-out");
 
         // MenuItems
+        menuItems?.classList.remove("nav-out");
         menuItems?.classList.toggle("nav-in");
         miniCart?.classList.toggle("nav-out");
+        miniCart?.classList.toggle("nav-in");
         setTimeout(() => {
             menuItems?.classList.remove("hidden");
             miniCart?.classList.add("hidden");
             miniCart?.classList.remove("nav-out");
         }, 100);
-    } else if (button === "cartButton") {
-        console.log("Boton de carrito presionado cuando el menu esta abierto");
-        toggleNavItems("menuButton");
-    };
 
-    isMenuItemsOpen = true;
-    isMiniCartOpen = false;
-    console.log("MenuItems: ", isMenuItemsOpen);
-    console.log("MiniCart: ", isMiniCartOpen);
+        isMiniCartOpen = false;
+        isMenuItemsOpen = true;
+    }
 };
 
 const toggleHammyIcon = () => {
